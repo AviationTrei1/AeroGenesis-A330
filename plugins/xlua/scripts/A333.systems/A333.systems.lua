@@ -1,4 +1,7 @@
 jit.off()
+-- (C)2025 modifed by AeroGenesis | originally published by Laminar Research
+
+
 --[[
 *****************************************************************************************
 * Program Script Name	:	A333.systems
