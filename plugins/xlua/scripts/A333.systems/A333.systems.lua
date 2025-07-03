@@ -457,12 +457,27 @@ function update()
 
     if ap_mode == 0 and previous_ap_mode ~= 0 then
         local sim_time = get("sim/time/total_running_time_sec")
-        logMsg("[A330 Debug] A/P Disconnected at sim time: " .. sim_time)
-        -- command_once("sim/autopilot/servos_on")
+        local reason = get("sim/cockpit2/autopilot/disconnect_reason")
+
+        local reason_text = "Unknown"
+
+        if reason == 1 then
+            reason_text = "Pilot input"
+        elseif reason == 2 then
+            reason_text = "Manual override"
+        elseif reason == 3 then
+            reason_text = "Trim error"
+        elseif reason == 4 then
+            reason_text = "Control limits exceeded"
+        end
+
+        logMsg("[A330 Debug] A/P Disconnected at sim time: " .. sim_time .. " | Reason: " .. reason_text)
     end
 
     previous_ap_mode = ap_mode
 end
+
+do_every_frame("update()")
 
 -- PFD STUFf
 
