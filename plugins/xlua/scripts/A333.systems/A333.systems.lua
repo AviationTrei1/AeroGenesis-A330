@@ -471,7 +471,7 @@ function update()
             reason_text = "Control limits exceeded"
         end
 
-        logMsg("[A330 Debug] A/P Disconnected at sim time: " .. sim_time .. " | Reason: " .. reason_text)
+        logMsg("[AG330 Debug] A/P Disconnected at sim time: " .. sim_time .. " | Reason: " .. reason_text)
     end
 
     previous_ap_mode = ap_mode
