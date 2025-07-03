@@ -422,7 +422,6 @@ simDR_brake_temp_right = find_dataref("sim/flightmodel2/gear/brake_absorbed_rat[
 -- CAB PRESS
 
 simDR_outflow_valve = find_dataref("sim/flightmodel2/misc/pressure_outflow_ratio")
-
 simDR_engine1_loss = find_dataref("sim/cockpit2/bleedair/indicators/engine_loss_from_bleed_air_ratio[0]")
 simDR_engine2_loss = find_dataref("sim/cockpit2/bleedair/indicators/engine_loss_from_bleed_air_ratio[1]")
 simDR_apu_loss = find_dataref("sim/cockpit2/bleedair/indicators/APU_loss_from_bleed_air_ratio")
@@ -449,7 +448,23 @@ function auto_brake()
     end
 end
 
--- PFD STUFF
+-- AutoPilot Debug Tool
+
+local previous_ap_mode = -1
+
+function update()
+    local ap_mode = get("sim/cockpit/autopilot/autopilot_mode")
+
+    if ap_mode == 0 and previous_ap_mode ~= 0 then
+        local sim_time = get("sim/time/total_running_time_sec")
+        logMsg("[A330 Debug] A/P Disconnected at sim time: " .. sim_time)
+        -- command_once("sim/autopilot/servos_on")
+    end
+
+    previous_ap_mode = ap_mode
+end
+
+-- PFD STUFf
 
 simDR_radio_altimeter_capt = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 simDR_radio_altimeter_FO = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot")
